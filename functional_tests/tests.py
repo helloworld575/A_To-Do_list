@@ -53,7 +53,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn('make a fly',page_text)
 
         inputbox=self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('But milk')
+        inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
 
         francis_list_url=self.browser.current_url
@@ -63,4 +63,3 @@ class NewVisitorTest(LiveServerTestCase):
         page_text=self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers',page_text)
         self.assertIn('Buy milk',page_text)
-        self.fail('Finish the test!')
