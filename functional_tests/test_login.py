@@ -2,22 +2,6 @@ from .base import FunctionalTest
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 class LoginTest(FunctionalTest):
-    def test_login_with_persona(self):
-        self.browser.get(self.server_url)
-        self.browser.find_element_by_id('login').click()
-
-        self.switch_to_new_window('Mozilla Persona')
-
-        self.browser.find_element_by_id(
-            'authentication_email'
-        ).send_keys('edith@mockmyid.com')
-        self.browser.find_element_by_tag_name('button').click()
-
-        self.switch_to_new_window('To-Do')
-
-        self.wait_for_element_with_id('logout')
-        navbar=self.browser.find_element_by_css_selector('.navbar')
-        self.assertIn('edith@mockmyid.com',navbar.text)
     def switch_to_new_window(self,text_in_title):
         retries=60
         while retries>0:
@@ -32,3 +16,19 @@ class LoginTest(FunctionalTest):
         WebDriverWait(self.browser,timeout=30).until(
             lambda b:b.find_element_by_id(element_id)
         )
+    def test_login_with_persona(self):
+        self.browser.get(self.server_url)
+        self.browser.find_element_by_id('id_login').click()
+
+        self.switch_to_new_window('Mozilla Persona')
+
+        self.browser.find_element_by_id(
+            'authentication_email'
+        ).send_keys('edith@mockmyid.com')
+        self.browser.find_element_by_tag_name('button').click()
+
+        self.switch_to_new_window('To-Do')
+
+        self.wait_for_element_with_id('id_logout')
+        navbar=self.browser.find_element_by_css_selector('.navbar')
+        self.assertIn('edith@mockmyid.com',navbar.text)
