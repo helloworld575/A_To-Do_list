@@ -5,9 +5,8 @@ from django.template.loader import render_to_string
 from django.utils.html import escape
 from lists.views import home_page
 from lists.models import Item,List
-from lists.forms import ItemForm,EMPTY_LIST_ERROR
 from unittest import skip
-from lists.forms import (ItemForm,DUPLICATE_ITEM_ERROR,EMPTY_LIST_ERROR,ExistingListItemForm)
+from lists.forms import (ItemForm,DUPLICATE_ITEM_ERROR,EMPTY_ITEM_ERROR,ExistingListItemForm)
 class HomePageTest(TestCase):
 
     def test_home_page_renders_home_template(self):
@@ -86,8 +85,8 @@ class ListViewTest(TestCase):
         self.assertIsInstance(response.context['form'],ExistingListItemForm)
     def test_for_invalid_input_shows_error_on_page(self):
         response=self.post_invalid_input()
-        self.assertContains(response,escape(EMPTY_LIST_ERROR))
-
+        self.assertContains(response,escape(EMPTY_ITEM_ERROR))
+    @skip
     def test_duplicate_item_validation_errors_end_up_on_lists_page(self):
         list1=List.objects.create()
         item1=Item.objects.create(list=list1,text='testey')
@@ -96,9 +95,9 @@ class ListViewTest(TestCase):
             data={'text':'textey'}
         )
         expected_error=escape(DUPLICATE_ITEM_ERROR)
-        # self.assertContains(response,expected_error)
-        # self.assertTemplateUsed(response,'list.html')
-        # self.assertEqual(Item.objects.all().count(),1)
+        self.assertContains(response,expected_error)
+        self.assertTemplateUsed(response,'list.html')
+        self.assertEqual(Item.objects.all().count(),1)
 
 
     def test_displays_item_form(self):
@@ -132,7 +131,7 @@ class NewListTest(TestCase):
         self.assertTemplateUsed(response,'home.html')
     def test_validation_errors_are_shown_on_home_page(self):
         response=self.client.post('/lists/new',data={'text': ''})
-        self.assertContains(response,escape(EMPTY_LIST_ERROR))
+        self.assertContains(response,escape(EMPTY_ITEM_ERROR))
     def test_for_invalid_input_passes_form_to_template(self):
         response=self.client.post('/lists/new',data={'text': ''})
         self.assertIsInstance(response.context['form'],ItemForm)
