@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <title>To-Do lists</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="/static/base.css" rel="stylesheet" media="screen">
 
@@ -12,7 +13,7 @@
 
     <body>
         <div calss="container">
-            <nav class="navbar navbar-default" role="navigation">
+            <nav class="navbar navbar-default" role="navigation" role="navigation">
                 <a href="/" class="navbar-brand">Superlists</a>
                 <a href="#" class="btn navbar-btn navbar-right" id="id_login">Sign in</a>
             </nav>
@@ -42,33 +43,16 @@
     <script src="http://code.jquery.com/jquery.min.js"></script>
     <script src="/static/list.js"></script>
     <script src="https://login.persona.org/include.js"></script>
+    <script src="/static/accounts.js"></script>
     <script>
         $(document).ready(function(){
-            var loginLink=document.getElementById('login');
-            if (loginLink){
-                loginLink.onclick=function(){navigator.id.request();};
-            }
-            var logoutLink=document.getElementById('logout');
-            if(logoutLink){
-                logoutLink.onclick=function(){navigator.id.logout();};
-            }
-
-            var currentUser='{{user.email}}'||null;
-            var csrf_token='{{csrf_token}}';
-            console.log(currentUser);
-
-            navigator.id.watch({
-                loggedInUser:currentUser,
-                onlogin:function(assertion){
-                    $.post('/accounts/login',{assertion:assertion,csrfmiddlewaretoken:csrf_token})
-                    .done(function(){window.location.reload();})
-                    .fail(function(){navigator.id.logout();});
-                },
-                onlogout:function(){
-                    $.post('/accounts/logout')
-                    .always(function(){window.location.reload();});
-                }
-            });
+            var user="{{ user.email }}"||null;
+            var token="{{ csrf_token }}";
+            var urls={
+                login:"TODO",
+                logout:"TODO",
+            };
+            Thefirst.Accounts.initialize(navigator,user,token, urls);
         });
 
     </script>
