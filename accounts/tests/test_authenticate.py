@@ -55,7 +55,7 @@ class GetUserTest(TestCase):
         found_user=backend.get_user('a@b.com')
         self.assertEqual(found_user,desired_user)
 
-    def test_return_none_if_user_with_that_email(self):
+    def test_returns_none_if_user_with_that_email(self):
         backend=PersonaAuthenticationBackend()
         self.assertIsNone(
             backend.get_user('a@b.com')
