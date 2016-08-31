@@ -25,7 +25,8 @@ SECRET_KEY = '%y+%4s!()v4m_0bddgk!_o6u=$#8n0x(z=cjf_bn5*mj(x^k@i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+DOMAIN = "localhost"
+ALLOWED_HOSTS = [DOMAIN]
 
 
 # Application definition
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'lists',
     'accounts',
+    'functional_tests',
 ]
 
 AUTH_USER_MODEL='accounts.User'

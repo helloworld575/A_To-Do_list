@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from lists.models import Item,List
+from lists.models import List
 from lists.forms import ExistingListItemForm,ItemForm
 
 def home_page(request):

@@ -40,9 +40,10 @@ class LoginTest(FunctionalTest):
 
         self.browser.refresh()
         self.wait_to_be_logged_in(email=TEST_EMAIL)
-
+'''
         self.browser.find_element_by_id('id_logout').click()
         self.wait_to_be_logged_out(email=TEST_EMAIL)
 
         self.browser.refresh()
         self.wait_to_be_logged_out(email=TEST_EMAIL)
+'''
