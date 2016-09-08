@@ -1,3 +1,16 @@
 #id_text{
     margin-top: 2ex;
 }
+body{
+    padding: 5px 5px 0 5px;
+}
+
+.jumbotron{
+    opacity: 0.8
+}
+
+#id_logout{
+    padding-right: 14px;
+    padding-top: 14px;
+    font-size: 18px;
+}
